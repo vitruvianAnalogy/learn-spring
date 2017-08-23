@@ -2,11 +2,32 @@
 group 'com.vitruvian'
 version '1.0-SNAPSHOT'
 
+/**
+ * The buildScript block determines which plugins, task classes,
+ * and other classes are available for use in the rest of the build script.
+ */
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.6.RELEASE")
+    }
+}
+
 //Applying the plugin that enables basic java functionality
 apply plugin: 'java'
 
+apply plugin: 'eclipse' //For eclipse IdE
+apply plugin: 'idea'    //For intellij IDE. Generates files that are used by intellij.
+apply plugin: 'org.springframework.boot' //Spring boot framework
+
+// apply plugin: 'application' //to be used in java projects but not in web service.
+// The Application plugin facilitates creating an executable JVM application.
+
 //Java's source version
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 //Maven central is our repository for the various dependencies. Our source for third party libraries
 repositories {
@@ -21,5 +42,17 @@ jar {
 // end::jar[]
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    /**
+     * testCompile:
+     * Dependencies used for compiling and running tests, but not required for building or running the project’s runtime code
+     */
+    testCompile group: 'junit', name: 'junit', version: '4.12' //normal way to write
+    testCompile('org.springframework.boot:spring-boot-starter-test') //shortcut way to write
+    compile("org.springframework.boot:spring-boot-starter-web")
+
+    /**
+     * providedCompile:
+     * Required dependencies for compiling the project code, but that will be provided at runtime
+     * by a container running the code (for example, the Java Servlet API).
+     */
 }
