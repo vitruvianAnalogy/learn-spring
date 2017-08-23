@@ -1,13 +1,24 @@
+//The group and version that user sets while creating an empty project.
 group 'com.vitruvian'
 version '1.0-SNAPSHOT'
 
+//Applying the plugin that enables basic java functionality
 apply plugin: 'java'
 
+//Java's source version
 sourceCompatibility = 1.8
 
+//Maven central is our repository for the various dependencies. Our source for third party libraries
 repositories {
     mavenCentral()
 }
+
+// Specifying the name of the jar that the project's jar will be called.
+jar {
+    baseName = 'gs-gradle'
+    version =  '0.1.0'
+}
+// end::jar[]
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
